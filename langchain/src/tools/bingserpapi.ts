@@ -29,6 +29,7 @@ class BingSerpAPI extends Tool {
     this.params = params;
   }
 
+  /** @ignore */
   async _call(input: string): Promise<string> {
     const headers = { "Ocp-Apim-Subscription-Key": this.key };
     const params = { q: input, textDecorations: "true", textFormat: "HTML" };
@@ -45,13 +46,15 @@ class BingSerpAPI extends Tool {
     }
 
     const res = await response.json();
-    const results:[] = res.webPages.value;
+    const results: [] = res.webPages.value;
 
     if (results.length === 0) {
-        return "No good results found.";
+      return "No good results found.";
     }
-    const snippets = results.map((result)=>result["snippet"]).join(" ")
-    
+    const snippets = results
+      .map((result: { snippet: string }) => result.snippet)
+      .join(" ");
+
     return snippets;
   }
 }
