@@ -1,6 +1,6 @@
 {
   "name": "langchain",
-  "version": "0.0.59",
+  "version": "0.0.63",
   "description": "Typescript bindings for langchain",
   "type": "module",
   "engines": {
@@ -232,12 +232,27 @@
     "retrievers/databerry.cjs",
     "retrievers/databerry.js",
     "retrievers/databerry.d.ts",
+    "retrievers/contextual_compression.cjs",
+    "retrievers/contextual_compression.js",
+    "retrievers/contextual_compression.d.ts",
+    "retrievers/document_compressors.cjs",
+    "retrievers/document_compressors.js",
+    "retrievers/document_compressors.d.ts",
     "cache.cjs",
     "cache.js",
     "cache.d.ts",
     "cache/redis.cjs",
     "cache/redis.js",
     "cache/redis.d.ts",
+    "stores/file/in_memory.cjs",
+    "stores/file/in_memory.js",
+    "stores/file/in_memory.d.ts",
+    "stores/file/node.cjs",
+    "stores/file/node.js",
+    "stores/file/node.d.ts",
+    "experimental/autogpt.cjs",
+    "experimental/autogpt.js",
+    "experimental/autogpt.d.ts",
     "index.cjs",
     "index.js",
     "index.d.ts"
@@ -287,6 +302,7 @@
     "@typescript-eslint/parser": "^5.51.0",
     "axios": "^0.26.0",
     "cheerio": "^1.0.0-rc.12",
+    "chromadb": "^1.4.0",
     "cohere-ai": "^5.0.2",
     "d3-dsv": "^2.0.0",
     "dotenv": "^16.0.3",
@@ -298,7 +314,6 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-no-instanceof": "^1.0.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-tree-shaking": "^1.10.0",
     "graphql": "^16.6.0",
     "hnswlib-node": "^1.4.2",
     "html-to-text": "^9.0.5",
@@ -332,7 +347,7 @@
     "@zilliz/milvus2-sdk-node": "^2.2.0",
     "axios": "^0.26.0",
     "cheerio": "^1.0.0-rc.12",
-    "chromadb": "^1.3.0",
+    "chromadb": "^1.4.0",
     "cohere-ai": "^5.0.2",
     "d3-dsv": "^2.0.0",
     "epub2": "^3.0.1",
@@ -444,7 +459,8 @@
     "p-retry": "4",
     "uuid": "^9.0.0",
     "yaml": "^2.2.1",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "zod-to-json-schema": "^3.20.4"
   },
   "publishConfig": {
     "access": "public"
@@ -851,6 +867,16 @@
       "import": "./retrievers/databerry.js",
       "require": "./retrievers/databerry.cjs"
     },
+    "./retrievers/contextual_compression": {
+      "types": "./retrievers/contextual_compression.d.ts",
+      "import": "./retrievers/contextual_compression.js",
+      "require": "./retrievers/contextual_compression.cjs"
+    },
+    "./retrievers/document_compressors": {
+      "types": "./retrievers/document_compressors.d.ts",
+      "import": "./retrievers/document_compressors.js",
+      "require": "./retrievers/document_compressors.cjs"
+    },
     "./cache": {
       "types": "./cache.d.ts",
       "import": "./cache.js",
@@ -860,6 +886,21 @@
       "types": "./cache/redis.d.ts",
       "import": "./cache/redis.js",
       "require": "./cache/redis.cjs"
+    },
+    "./stores/file/in_memory": {
+      "types": "./stores/file/in_memory.d.ts",
+      "import": "./stores/file/in_memory.js",
+      "require": "./stores/file/in_memory.cjs"
+    },
+    "./stores/file/node": {
+      "types": "./stores/file/node.d.ts",
+      "import": "./stores/file/node.js",
+      "require": "./stores/file/node.cjs"
+    },
+    "./experimental/autogpt": {
+      "types": "./experimental/autogpt.d.ts",
+      "import": "./experimental/autogpt.js",
+      "require": "./experimental/autogpt.cjs"
     },
     "./package.json": "./package.json"
   }
