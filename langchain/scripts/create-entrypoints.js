@@ -26,6 +26,8 @@ const entrypoints = {
   "embeddings/fake": "embeddings/fake",
   "embeddings/openai": "embeddings/openai",
   "embeddings/cohere": "embeddings/cohere",
+  "embeddings/tensorflow": "embeddings/tensorflow",
+  "embeddings/hf": "embeddings/hf",
   // llms
   llms: "llms/index",
   "llms/load": "llms/load",
@@ -50,6 +52,8 @@ const entrypoints = {
   "vectorstores/opensearch": "vectorstores/opensearch",
   "vectorstores/milvus": "vectorstores/milvus",
   "vectorstores/prisma": "vectorstores/prisma",
+  "vectorstores/myscale": "vectorstores/myscale",
+  "vectorstores/redis": "vectorstores/redis",
   // text_splitter
   text_splitter: "text_splitter",
   // memory
@@ -61,6 +65,7 @@ const entrypoints = {
   // document_loaders
   document_loaders: "document_loaders/index",
   "document_loaders/base": "document_loaders/base",
+  "document_loaders/web/apify_dataset": "document_loaders/web/apify_dataset",
   "document_loaders/web/cheerio": "document_loaders/web/cheerio",
   "document_loaders/web/puppeteer": "document_loaders/web/puppeteer",
   "document_loaders/web/playwright": "document_loaders/web/playwright",
@@ -71,6 +76,7 @@ const entrypoints = {
   "document_loaders/web/imsdb": "document_loaders/web/imsdb",
   "document_loaders/web/github": "document_loaders/web/github",
   "document_loaders/web/s3": "document_loaders/web/s3",
+  "document_loaders/web/confluence": "document_loaders/web/confluence",
   "document_loaders/fs/directory": "document_loaders/fs/directory",
   "document_loaders/fs/buffer": "document_loaders/fs/buffer",
   "document_loaders/fs/text": "document_loaders/fs/text",
@@ -89,6 +95,7 @@ const entrypoints = {
   "chat_models/anthropic": "chat_models/anthropic",
   // schema
   schema: "schema/index",
+  "schema/output_parser": "schema/output_parser",
   // sql_db
   sql_db: "sql_db",
   // callbacks
@@ -103,14 +110,23 @@ const entrypoints = {
   "retrievers/databerry": "retrievers/databerry",
   "retrievers/contextual_compression": "retrievers/contextual_compression",
   "retrievers/document_compressors": "retrievers/document_compressors/index",
+  "retrievers/time_weighted": "retrievers/time_weighted",
+  "retrievers/document_compressors/chain_extract":
+    "retrievers/document_compressors/chain_extract",
+  "retrievers/hyde": "retrievers/hyde",
   // cache
   cache: "cache/index",
   "cache/redis": "cache/redis",
   // stores
   "stores/file/in_memory": "stores/file/in_memory",
   "stores/file/node": "stores/file/node",
+  "stores/message/dynamodb": "stores/message/dynamodb",
+  "stores/message/redis": "stores/message/redis",
   // experimental
   "experimental/autogpt": "experimental/autogpt/index",
+  "experimental/babyagi": "experimental/babyagi/index",
+  "experimental/plan_and_execute": "experimental/plan_and_execute/index",
+  client: "client/index",
 };
 
 // Entrypoints in this list will
@@ -126,7 +142,7 @@ const deprecatedNodeOnly = [
 ];
 
 // Entrypoints in this list require an optional dependency to be installed.
-// Therefore they are no tested in the generated test-exports-* packages.
+// Therefore they are not tested in the generated test-exports-* packages.
 const requiresOptionalDependency = [
   "agents/load",
   "tools/aws_lambda",
@@ -134,6 +150,8 @@ const requiresOptionalDependency = [
   "tools/webbrowser",
   "chains/load",
   "embeddings/cohere",
+  "embeddings/tensorflow",
+  "embeddings/hf",
   "llms/load",
   "llms/cohere",
   "llms/hf",
@@ -147,6 +165,9 @@ const requiresOptionalDependency = [
   "vectorstores/supabase",
   "vectorstores/opensearch",
   "vectorstores/milvus",
+  "vectorstores/myscale",
+  "vectorstores/redis",
+  "document_loaders/web/apify_dataset",
   "document_loaders/web/cheerio",
   "document_loaders/web/puppeteer",
   "document_loaders/web/playwright",
@@ -156,6 +177,7 @@ const requiresOptionalDependency = [
   "document_loaders/web/imsdb",
   "document_loaders/web/github",
   "document_loaders/web/s3",
+  "document_loaders/web/confluence",
   "document_loaders/fs/directory",
   "document_loaders/fs/buffer",
   "document_loaders/fs/text",
@@ -172,6 +194,8 @@ const requiresOptionalDependency = [
   "retrievers/metal",
   "cache/redis",
   "stores/file/node",
+  "stores/message/dynamodb",
+  "stores/message/redis",
 ];
 
 // List of test-exports-* packages which we use to test that the exports field
@@ -180,6 +204,10 @@ const requiresOptionalDependency = [
 const testExports = [
   [
     "test-exports-esm",
+    (p) => `import * as ${p.replace(/\//g, "_")} from "langchain/${p}";`,
+  ],
+  [
+    "test-exports-esbuild",
     (p) => `import * as ${p.replace(/\//g, "_")} from "langchain/${p}";`,
   ],
   [
